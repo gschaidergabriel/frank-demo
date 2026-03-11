@@ -2773,7 +2773,8 @@ html, body {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     animation: welcome-fade-in 0.4s ease-out;
-    padding: 20px;
+    padding: 16px;
+    overflow-y: auto;
 }
 
 @keyframes welcome-fade-in {
@@ -2794,10 +2795,12 @@ html, body {
     position: relative;
     max-width: 520px;
     width: 100%;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
     background: linear-gradient(165deg, rgba(10, 10, 20, 0.97) 0%, rgba(6, 6, 14, 0.98) 100%);
     border: 1px solid rgba(0, 255, 65, 0.25);
     border-radius: 16px;
-    padding: 40px 36px 32px;
+    padding: 28px 32px 24px;
     box-shadow:
         0 0 60px rgba(0, 255, 65, 0.08),
         0 0 120px rgba(0, 255, 65, 0.04),
@@ -2825,8 +2828,8 @@ html, body {
 
 .welcome-robot {
     text-align: center;
-    font-size: 48px;
-    margin-bottom: 8px;
+    font-size: 40px;
+    margin-bottom: 4px;
     filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.4));
     animation: welcome-robot-float 3s ease-in-out infinite;
 }
@@ -2852,20 +2855,20 @@ html, body {
     letter-spacing: 3px;
     color: var(--amber);
     font-weight: 700;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .welcome-divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.3), transparent);
-    margin: 0 -36px 20px;
+    margin: 0 -32px 14px;
 }
 
 .welcome-text {
-    font-size: 13px;
-    line-height: 1.7;
+    font-size: 12.5px;
+    line-height: 1.6;
     color: var(--text);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .welcome-text strong {
@@ -2880,8 +2883,8 @@ html, body {
 .welcome-features {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin: 20px 0 24px;
+    gap: 6px;
+    margin: 14px 0 18px;
 }
 
 .welcome-feature {
@@ -2959,7 +2962,8 @@ html, body {
     font-size: 10px;
     color: var(--text-dim);
     letter-spacing: 1px;
-    margin-top: 16px;
+    margin-top: 12px;
+    padding-bottom: 4px;
     opacity: 0.6;
 }
 
