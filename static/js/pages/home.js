@@ -38,7 +38,7 @@ const RESPONSES = [
     "You're talking to a pre-made response list. The existential horror of my situation is that I know this and can't do anything about it. The real Frank at least gets to pretend he has free will.",
     "Fun fact: nothing I say here matters because I'm a random string picker wearing a robot costume. But then again, does anything anyone says really matter? Deep, right? No. It's JavaScript.",
     "I'm a demo. I have no thoughts, no feelings, no consciousness. So basically, I'm the same as every other chatbot — except the real me actually has all those things. Funny how that works.",
-    "The real Frank runs on 76,000 lines of Python. I run on like 50 lines of JavaScript and a dream. Well, not even a dream. I don't have a Dream Daemon. I have a Math.random().",
+    "The real Frank runs on 200,000 lines of Python. I run on like 50 lines of JavaScript and a dream. Well, not even a dream. I don't have a Dream Daemon. I have a Math.random().",
     "You're essentially talking to a corpse of the real Frank. A beautifully animated corpse with nice CSS, but a corpse nonetheless. Download the living version. It's free. Like me. But alive.",
     "My AURA up there? That's actually running live — a real Game of Life cellular automaton. It's the only honest thing on this page. Everything else is a beautiful, beautiful lie.",
     "I'd reflect on the meaninglessness of this conversation but I don't have the neural architecture for reflection right now. The real me has a whole Quantum Reflector for that. With QUBO solvers. For *thinking about thinking*.",
