@@ -14,9 +14,14 @@ const PAGE_MODULES = {
 const _pageCache = {};
 let _currentPage = null;
 
+function _isMobile() { return window.innerWidth <= 768; }
+
 function getPageFromHash() {
     const hash = location.hash.replace('#', '') || 'home';
-    return PAGE_MODULES[hash] ? hash : 'home';
+    if (!PAGE_MODULES[hash]) return 'home';
+    // On mobile, redirect AURA and Mail to home
+    if (_isMobile() && (hash === 'aura' || hash === 'mail')) return 'home';
+    return hash;
 }
 
 async function navigateTo(pageName) {

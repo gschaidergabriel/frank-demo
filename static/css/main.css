@@ -2863,7 +2863,7 @@ html, body {
         0 20px 60px rgba(0, 0, 0, 0.6),
         inset 0 1px 0 rgba(255, 255, 255, 0.04);
     animation: welcome-modal-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .welcome-modal::before {
@@ -3038,3 +3038,55 @@ html, body {
         letter-spacing: 4px;
     }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE-ONLY OVERRIDES
+   Hide AURA + Mail nav, Home = chat only, welcome popup = text only
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    /* Hide AURA and Mail nav links */
+    .mobile-hide-nav { display: none !important; }
+
+    /* Home: only chat, hide all side panels */
+    .home-status { display: none !important; }
+    .home-manual { display: none !important; }
+    .home-layout-3col {
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+    }
+    .chat-panel {
+        min-height: calc(100vh - var(--nav-height) - 70px);
+        border-radius: 8px;
+    }
+    .chat-messages {
+        max-height: calc(100vh - var(--nav-height) - 200px);
+    }
+
+    /* Welcome modal: compact text-only version */
+    .welcome-modal {
+        padding: 20px 16px 16px;
+        max-width: 360px;
+        border-radius: 12px;
+    }
+    .welcome-robot { display: none; }
+    .welcome-title { font-size: 16px; letter-spacing: 3px; margin-bottom: 2px; }
+    .welcome-subtitle { font-size: 9px; letter-spacing: 2px; margin-bottom: 10px; }
+    .welcome-divider { margin: 0 -16px 10px; }
+    .welcome-features { display: none !important; }
+    .welcome-text {
+        font-size: 11px;
+        line-height: 1.5;
+        margin-bottom: 8px;
+    }
+    .welcome-text .cyan { color: var(--cyan); }
+    /* Replace desktop text with mobile-appropriate message */
+    .welcome-text-desktop { display: none !important; }
+    .welcome-text-mobile { display: block !important; }
+    .welcome-buttons { gap: 8px; flex-direction: column; }
+    .welcome-btn-primary { padding: 10px 16px; font-size: 12px; }
+    .welcome-btn-secondary { padding: 8px 16px; font-size: 10px; justify-content: center; }
+    .welcome-footer { font-size: 9px; margin-top: 8px; }
+}
+
+/* Desktop: show desktop text, hide mobile text */
+.welcome-text-mobile { display: none; }
