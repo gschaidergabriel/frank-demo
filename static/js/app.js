@@ -14,7 +14,7 @@ const PAGE_MODULES = {
 const _pageCache = {};
 let _currentPage = null;
 
-function _isMobile() { return window.innerWidth <= 768; }
+function _isMobile() { return window.innerWidth <= 900; }
 
 function getPageFromHash() {
     const hash = location.hash.replace('#', '') || 'home';

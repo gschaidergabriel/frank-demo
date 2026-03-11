@@ -3043,7 +3043,7 @@ html, body {
    MOBILE-ONLY OVERRIDES
    Hide AURA + Mail nav, Home = chat only, welcome popup = text only
    ══════════════════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     /* Hide AURA and Mail nav links */
     .mobile-hide-nav { display: none !important; }
 
