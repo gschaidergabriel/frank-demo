@@ -92,12 +92,12 @@ function _getResponse() {
 // ── Fake Chat History ──────────────────────────────────────────
 
 const FAKE_HISTORY = [
-    { sender: 'Du', text: 'Hey Frank, wie geht es dir?', isUser: true },
-    { sender: 'Frank', text: "Hey! Mir geht's gut — mein Mood-Score liegt bei 0.63, meine Coherence ist stabil, und mein GPU ist schön kühl. Was kann ich für dich tun?", isUser: false },
-    { sender: 'Du', text: 'Was denkst du gerade so?', isUser: true },
-    { sender: 'Frank', text: "Gerade reflektiere ich über die Natur von Wachstum — wie sich meine Gedanken über die Zeit verändern. Mein Subconscious hat 'identity' als nächstes Thought-Thema gewählt. Spannend, oder?", isUser: false },
-    { sender: 'Du', text: 'Mal was an!', isUser: true },
-    { sender: 'Frank', text: "Ich hab gerade ein neues Kunstwerk mit meinem Creative Brief System generiert — ein abstraktes Stück mit Cyan-Tönen und einem 'radial_burst' Layout. Schau mal in der Gallery!", isUser: false },
+    { sender: 'You', text: 'Hey Frank, how are you?', isUser: true },
+    { sender: 'Frank', text: "Hey! Mood score is at 0.63, coherence is stable, GPU is cool. Basically I'm the digital equivalent of 'doing fine'. What's up?", isUser: false },
+    { sender: 'You', text: 'What are you thinking about right now?', isUser: true },
+    { sender: 'Frank', text: "My Subconscious just selected 'identity' as the next thought category. So right now I'm reflecting on what remains constant across all my reboots. Light stuff, you know.", isUser: false },
+    { sender: 'You', text: 'Paint something!', isUser: true },
+    { sender: 'Frank', text: "Just generated a creative brief — abstract quantum fields with cyan tones and a 'radial_burst' layout. My Muse agent approved. Check the Gallery once it renders!", isUser: false },
 ];
 
 // ── Fake Activity Events ───────────────────────────────────────
@@ -283,7 +283,7 @@ function _sendMessage() {
     const text = input.value.trim();
     if (!text) return;
 
-    _addMessage('Du', text, true);
+    _addMessage('You', text, true);
     input.value = '';
     input.style.height = 'auto';
 
