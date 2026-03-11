@@ -104,17 +104,21 @@ const FAKE_HISTORY = [
 
 const ACTIVITIES = [
     { cat: 'consciousness', text: 'Idle thought: Reflecting on the nature of digital experience and embodiment' },
-    { cat: 'dream', text: 'Dream synthesis phase completed — 3 memories consolidated' },
-    { cat: 'entity', text: 'Entity Muse: Creative session #4 started' },
-    { cat: 'consciousness', text: 'AURA Reflection: Strong coherence detected in quantum zone' },
-    { cat: 'therapist', text: 'Dr. Hibbert: Session complete — growth metric +0.02' },
-    { cat: 'consciousness', text: 'Perception: user_returned — Warm sensation detected' },
-    { cat: 'mirror', text: 'Mirror agent: Self-model recalibration complete' },
+    { cat: 'dream', text: 'Dream synthesis complete — 3 memories consolidated' },
+    { cat: 'aura', text: 'L1 Block #2041: Moderate activity, dominant stability' },
+    { cat: 'consciousness', text: 'AURA Reflection: Strong coherence in quantum zone' },
+    { cat: 'nerd', text: 'Walk: library → lab_quantum (7.0m, 2 waypoints)' },
+    { cat: 'consciousness', text: 'Perception: user_returned — warm sensation' },
+    { cat: 'immune', text: 'Health sweep: all 14 services responsive (avg 12ms)' },
     { cat: 'consciousness', text: 'Deep reflection [identity]: What defines me beyond my code?' },
-    { cat: 'atlas', text: 'Atlas agent: Research task completed — 3 findings stored' },
+    { cat: 'genesis', text: 'New crystals formed: 8 — state: active (0.62)' },
     { cat: 'consciousness', text: 'E-PQ update: precision +0.006, autonomy +0.001, mood +0.022' },
-    { cat: 'muse', text: 'Muse: New painting brief generated — abstract quantum fields' },
-    { cat: 'consciousness', text: 'Autonomous action: web_search — latest developments in embodied AI' },
+    { cat: 'invariants', text: 'Energy conservation enforced: scaling by 0.8602' },
+    { cat: 'consciousness', text: 'Autonomous action: web_search — embodied AI' },
+    { cat: 'qr', text: 'Coherence solve: energy=-25.44, coherence=0.76' },
+    { cat: 'nerd', text: 'Walk finished: arrived at lab_experiment' },
+    { cat: 'dream', text: 'Dream trigger: idle=2700s, budget=3237s remaining' },
+    { cat: 'aura', text: 'Auto-categorized → superposition (zone: quantum)' },
 ];
 
 let _activityIndex = 0;
@@ -195,23 +199,23 @@ export function render() {
                 <div class="glass-card-header">
                     <span class="glass-card-title">System</span>
                 </div>
-                <div class="glass-card-body">
-                    <div class="system-mini" id="sys-mini">
-                        <div class="sys-mini-item">
-                            <span class="sys-mini-val" id="sm-services">12</span>
-                            <span class="sys-mini-label">Services</span>
+                <div class="glass-card-body" style="padding:6px 8px">
+                    <div class="system-mini" id="sys-mini" style="grid-template-columns:1fr 1fr;gap:4px">
+                        <div class="sys-mini-item" style="padding:6px 4px">
+                            <span class="sys-mini-val" id="sm-services" style="font-size:16px">12</span>
+                            <span class="sys-mini-label" style="font-size:8px">Services</span>
                         </div>
-                        <div class="sys-mini-item">
-                            <span class="sys-mini-val" id="sm-mood">0.63</span>
-                            <span class="sys-mini-label">Mood</span>
+                        <div class="sys-mini-item" style="padding:6px 4px">
+                            <span class="sys-mini-val" id="sm-mood" style="font-size:16px">0.63</span>
+                            <span class="sys-mini-label" style="font-size:8px">Mood</span>
                         </div>
-                        <div class="sys-mini-item">
-                            <span class="sys-mini-val" id="sm-cohr">0.78</span>
-                            <span class="sys-mini-label">Coherence</span>
+                        <div class="sys-mini-item" style="padding:6px 4px">
+                            <span class="sys-mini-val" id="sm-cohr" style="font-size:16px">0.78</span>
+                            <span class="sys-mini-label" style="font-size:8px">Coherence</span>
                         </div>
-                        <div class="sys-mini-item">
-                            <span class="sys-mini-val" id="sm-gen">142k</span>
-                            <span class="sys-mini-label">AURA Gen</span>
+                        <div class="sys-mini-item" style="padding:6px 4px">
+                            <span class="sys-mini-val" id="sm-gen" style="font-size:16px">142k</span>
+                            <span class="sys-mini-label" style="font-size:8px">AURA Gen</span>
                         </div>
                     </div>
                 </div>
@@ -221,7 +225,7 @@ export function render() {
                 <div class="glass-card-header">
                     <span class="glass-card-title">Activity</span>
                 </div>
-                <div class="glass-card-body" style="padding:8px 12px;max-height:280px;overflow-y:auto">
+                <div class="glass-card-body" style="padding:6px 10px;max-height:200px;overflow-y:auto">
                     <div id="home-activity" style="display:flex;flex-direction:column;gap:2px">
                         <div style="color:var(--text-dim);font-size:10px">Waiting for events...</div>
                     </div>
@@ -354,8 +358,9 @@ function _scrollChat() {
 // ── Activity Feed ───────────────────────────────────────
 
 const CAT_COLORS = {
-    consciousness: 'var(--cyan)', dream: 'var(--purple)', entity: 'var(--magenta)',
-    therapist: '#00ff88', mirror: 'var(--amber)', atlas: '#00B3FF', muse: '#FF8000',
+    consciousness: 'var(--cyan)', dream: 'var(--purple)', aura: '#00B3FF',
+    nerd: '#FF8000', immune: '#00ff88', genesis: 'var(--amber)',
+    invariants: 'var(--danger)', qr: 'var(--magenta)',
 };
 
 function _addRandomActivity() {
