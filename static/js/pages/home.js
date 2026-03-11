@@ -100,29 +100,6 @@ const FAKE_HISTORY = [
     { sender: 'Frank', text: "Just generated a creative brief — abstract quantum fields with cyan tones and a 'radial_burst' layout. My Muse agent approved. Check the Gallery once it renders!", isUser: false },
 ];
 
-// ── Fake Activity Events ───────────────────────────────────────
-
-const ACTIVITIES = [
-    { cat: 'consciousness', text: 'Idle thought: Reflecting on the nature of digital experience and embodiment' },
-    { cat: 'dream', text: 'Dream synthesis complete — 3 memories consolidated' },
-    { cat: 'aura', text: 'L1 Block #2041: Moderate activity, dominant stability' },
-    { cat: 'consciousness', text: 'AURA Reflection: Strong coherence in quantum zone' },
-    { cat: 'nerd', text: 'Walk: library → lab_quantum (7.0m, 2 waypoints)' },
-    { cat: 'consciousness', text: 'Perception: user_returned — warm sensation' },
-    { cat: 'immune', text: 'Health sweep: all 14 services responsive (avg 12ms)' },
-    { cat: 'consciousness', text: 'Deep reflection [identity]: What defines me beyond my code?' },
-    { cat: 'genesis', text: 'New crystals formed: 8 — state: active (0.62)' },
-    { cat: 'consciousness', text: 'E-PQ update: precision +0.006, autonomy +0.001, mood +0.022' },
-    { cat: 'invariants', text: 'Energy conservation enforced: scaling by 0.8602' },
-    { cat: 'consciousness', text: 'Autonomous action: web_search — embodied AI' },
-    { cat: 'qr', text: 'Coherence solve: energy=-25.44, coherence=0.76' },
-    { cat: 'nerd', text: 'Walk finished: arrived at lab_experiment' },
-    { cat: 'dream', text: 'Dream trigger: idle=2700s, budget=3237s remaining' },
-    { cat: 'aura', text: 'Auto-categorized → superposition (zone: quantum)' },
-];
-
-let _activityIndex = 0;
-let _activityTimer = null;
 
 export function render() {
     return `
@@ -223,17 +200,6 @@ export function render() {
 
             <div class="glass-card animate-in animate-in-delay-2">
                 <div class="glass-card-header">
-                    <span class="glass-card-title">Activity</span>
-                </div>
-                <div class="glass-card-body" style="padding:6px 10px;max-height:200px;overflow-y:auto">
-                    <div id="home-activity" style="display:flex;flex-direction:column;gap:2px">
-                        <div style="color:var(--text-dim);font-size:10px">Waiting for events...</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-card animate-in animate-in-delay-3">
-                <div class="glass-card-header">
                     <span class="glass-card-title">Quick Links</span>
                 </div>
                 <div class="glass-card-body" style="padding:8px 12px;display:flex;flex-direction:column;gap:4px">
@@ -261,15 +227,10 @@ export function mount() {
     // Load fake history
     FAKE_HISTORY.forEach(m => _addMessage(m.sender, m.text, m.isUser));
 
-    // Start activity feed
-    _activityTimer = setInterval(_addRandomActivity, 12000);
-    // Add initial activities
-    for (let i = 0; i < 3; i++) _addRandomActivity();
 }
 
 export function unmount() {
     _mounted = false;
-    if (_activityTimer) { clearInterval(_activityTimer); _activityTimer = null; }
 }
 
 function _onInput() {
@@ -355,28 +316,3 @@ function _scrollChat() {
     if (c) requestAnimationFrame(() => { c.scrollTop = c.scrollHeight; });
 }
 
-// ── Activity Feed ───────────────────────────────────────
-
-const CAT_COLORS = {
-    consciousness: 'var(--cyan)', dream: 'var(--purple)', aura: '#00B3FF',
-    nerd: '#FF8000', immune: '#00ff88', genesis: 'var(--amber)',
-    invariants: 'var(--danger)', qr: 'var(--magenta)',
-};
-
-function _addRandomActivity() {
-    const act = ACTIVITIES[_activityIndex % ACTIVITIES.length];
-    _activityIndex++;
-    _addActivity(act.cat, act.text);
-}
-
-function _addActivity(cat, text) {
-    const feed = $('#home-activity');
-    if (!feed) return;
-    if (feed.children.length === 1 && feed.firstChild.textContent.includes('Waiting')) feed.innerHTML = '';
-    const el = document.createElement('div');
-    el.style.cssText = `font-size:10px;padding:4px 6px;border-left:2px solid ${CAT_COLORS[cat] || 'var(--green-dark)'};color:var(--text-dim);line-height:1.4`;
-    el.innerHTML = `<span style="color:${CAT_COLORS[cat] || 'var(--green-dim)'};font-weight:600;text-transform:uppercase;letter-spacing:0.5px;font-size:9px">${escapeHtml(cat)}</span> ${escapeHtml(text.slice(0, 120))}`;
-    feed.appendChild(el);
-    while (feed.children.length > 30) feed.removeChild(feed.firstChild);
-    feed.scrollTop = feed.scrollHeight;
-}
