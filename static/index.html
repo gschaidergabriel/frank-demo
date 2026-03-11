@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.R.A.N.K. // DEMO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F916;</text></svg>">
+</head>
+<body>
+    <canvas id="gol-bg"></canvas>
+    <div class="scanlines"></div>
+    <div class="aurora-container">
+        <div class="aurora-blob aurora-1"></div>
+        <div class="aurora-blob aurora-2"></div>
+        <div class="aurora-blob aurora-3"></div>
+    </div>
+
+    <nav id="nav" class="nav">
+        <div class="nav-brand">
+            <span class="nav-logo glitch-text" data-text="F.R.A.N.K.">F.R.A.N.K.</span>
+            <span class="demo-badge">DEMO</span>
+            <span class="nav-sep">//</span>
+            <span class="nav-tagline">DEMO</span>
+        </div>
+        <div class="nav-links">
+            <a href="#home" class="nav-link active" data-page="home">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Home</span>
+            </a>
+            <a href="#aura" class="nav-link" data-page="aura">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 014 10 15 15 0 01-4 10 15 15 0 01-4-10 15 15 0 014-10z"/><path d="M2 12h20"/></svg>
+                <span>AURA</span>
+            </a>
+            <a href="#gallery" class="nav-link" data-page="gallery">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span>Gallery</span>
+            </a>
+            <a href="#lab" class="nav-link" data-page="lab">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3h6v5l4 7H5l4-7V3z"/><path d="M7 15h10v2a4 4 0 01-4 4h-2a4 4 0 01-4-4v-2z"/></svg>
+                <span>Laboratory</span>
+            </a>
+            <a href="#logs" class="nav-link" data-page="logs">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                <span>Logs</span>
+            </a>
+            <a href="#mail" class="nav-link" data-page="mail">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span>Mail</span>
+            </a>
+        </div>
+        <div class="nav-status">
+            <span class="conn-indicator" id="conn-indicator">
+                <span class="conn-dot online" id="conn-dot"></span>
+                <span id="conn-text">DEMO MODE</span>
+            </span>
+        </div>
+    </nav>
+
+    <main id="page-container" class="page-container"></main>
+
+    <footer id="status-bar" class="status-bar">
+        <div class="status-services">
+            <span class="svc online" id="svc-core"><span class="svc-dot"></span>Core</span>
+            <span class="svc online" id="svc-llm"><span class="svc-dot"></span>LLM</span>
+            <span class="svc online" id="svc-tools"><span class="svc-dot"></span>Tools</span>
+            <span class="svc online" id="svc-aura"><span class="svc-dot"></span>AURA</span>
+            <span class="svc online" id="svc-qr"><span class="svc-dot"></span>QR</span>
+        </div>
+        <div class="status-metrics">
+            <span class="metric" id="m-cpu-temp">CPU 52°C</span>
+            <span class="metric-sep">|</span>
+            <span class="metric" id="m-cpu">CPU 23%</span>
+            <span class="metric-sep">|</span>
+            <span class="metric" id="m-gpu">GPU 8%</span>
+            <span class="metric-sep">|</span>
+            <span class="metric" id="m-ram">RAM 61%</span>
+        </div>
+    </footer>
+
+    <!-- Demo Banner -->
+    <div class="demo-banner">
+        <span>This is a visual demo — no real AI is running.</span>
+        <a href="https://github.com/gschaidergabriel/Project-Frankenstein" target="_blank" class="demo-banner-link">Download the real F.R.A.N.K. on GitHub</a>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+    <script type="module" src="./js/app.js"></script>
+</body>
+</html>
