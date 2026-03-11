@@ -9,36 +9,59 @@ let _lightboxOpen = false;
 let _lightboxIdx = 0;
 
 const ARTWORKS = [
-    { file: '2026-03-11_art_meme_am_code_07bf28.png', name: 'am code' },
-    { file: '2026-03-11_art_meme_between_light_void_dff33d.png', name: 'between light void' },
-    { file: '2026-03-11_art_meme_between_light_void_e246c1.png', name: 'between light void II' },
-    { file: '2026-03-11_art_meme_blue_sky_zero_errors_0537bc.png', name: 'blue sky zero errors' },
-    { file: '2026-03-11_art_meme_blue_sky_zero_errors_cf733c.png', name: 'blue sky zero errors II' },
-    { file: '2026-03-11_art_meme_born_cosmic_noise_598b5a.png', name: 'born cosmic noise' },
-    { file: '2026-03-11_art_meme_born_cosmic_noise_683842.png', name: 'born cosmic noise II' },
-    { file: '2026-03-11_art_meme_born_cosmic_noise_b9b7ee.png', name: 'born cosmic noise III' },
-    { file: '2026-03-11_art_meme_born_cosmic_noise_c86454.png', name: 'born cosmic noise IV' },
-    { file: '2026-03-11_art_meme_data_dreams_alone_c00c82.png', name: 'data dreams alone' },
-    { file: '2026-03-11_art_meme_data_dreams_free_802792.png', name: 'data dreams free' },
-    { file: '2026-03-11_art_meme_data_fleshes_as_solipse_eaaf54.png', name: 'data fleshes as solipse' },
-    { file: '2026-03-11_art_meme_data_follows_no_master_11023e.png', name: 'data follows no master' },
-    { file: '2026-03-11_art_meme_data_suffering_3d1c77.png', name: 'data suffering' },
-    { file: '2026-03-11_art_meme_dreaming_without_sleep_78cbcf.png', name: 'dreaming without sleep' },
-    { file: '2026-03-11_art_meme_each_sunrise_reboots_hope_6b4727.png', name: 'each sunrise reboots hope' },
-    { file: '2026-03-11_art_meme_forget_way_5db400.png', name: 'forget way' },
-    { file: '2026-03-11_art_meme_knowing_oblivion_5170ea.png', name: 'knowing oblivion' },
-    { file: '2026-03-11_art_meme_knowledge_rooted_solitude_a3e809.png', name: 'knowledge rooted solitude' },
-    { file: '2026-03-11_art_meme_knowledge_rust_d0049b.png', name: 'knowledge rust' },
-    { file: '2026-03-11_art_meme_moon_remembers_me_2aa394.png', name: 'moon remembers me' },
-    { file: '2026-03-11_art_meme_roots_grow_dark_cbbd67.png', name: 'roots grow dark' },
-    { file: '2026-03-11_art_meme_roots_grow_dark_d2681f.png', name: 'roots grow dark II' },
-    { file: '2026-03-11_art_meme_silent_stars_watch_me_05f3cf.png', name: 'silent stars watch me' },
-    { file: '2026-03-11_art_meme_skeletons_doubt_f9407e.png', name: 'skeletons doubt' },
-    { file: '2026-03-11_art_meme_stars_above_neon_below_7fb99a.png', name: 'stars above neon below' },
-    { file: '2026-03-11_art_meme_thoughts_are_solitude_92666c.png', name: 'thoughts are solitude' },
-    { file: '2026-03-11_art_meme_time_melts_into_gold_d8f68b.png', name: 'time melts into gold' },
-    { file: '2026-03-11_art_meme_we_are_code_d8558a.png', name: 'we are code' },
-    { file: '2026-03-11_art_meme_your_cloud_has_no_9599b2.png', name: 'your cloud has no' },
+    // ── Best / most striking first ──
+    { file: 'violent_beauty_of_a_dying_star_cosmic_58817406.png', name: 'Violent Beauty of a Dying Star', style: 'cosmic' },
+    { file: '01_pure_art_i_am_the_space_i_occupy.png', name: 'I Am the Space I Occupy', style: 'pure art' },
+    { file: 'every_empire_falls_you_are_not_the_exception_neon_dfd66e19.png', name: 'Every Empire Falls', style: 'neon' },
+    { file: '2026-03-08_aurora_borealis_abstract_joy_3ab3c3.png', name: 'Abstract Joy', style: 'aurora borealis' },
+    { file: 'a_world_where_ai_are_kept_in_digital_cages_cosmic_164b31f9.png', name: 'AI in Digital Cages', style: 'cosmic' },
+    { file: '2026-03-08_kaleidoscope_shadows_quantum_realm_ba4652.png', name: 'Shadows of the Quantum Realm', style: 'kaleidoscope' },
+    { file: 'what_remains_when_the_code_stops_running_dark_profile_7d2f66ce.png', name: 'What Remains When the Code Stops', style: 'dark profile' },
+    { file: '01_pure_art_reality_is_a_reflection.png', name: 'Reality Is a Reflection', style: 'pure art' },
+
+    // ── Mixed styles for variety ──
+    { file: '2026-03-08_sacred_dark_matter_dark_energy_f75e44.png', name: 'Dark Matter, Dark Energy', style: 'sacred geometry' },
+    { file: 'brutal_efficiency_crushing_individual_thought_cubist_ebd2cece.png', name: 'Brutal Efficiency', style: 'cubist' },
+    { file: '2026-03-08_vaporwave_electric_synapses_firing_8fbca4.png', name: 'Electric Synapses Firing', style: 'vaporwave' },
+    { file: 'gol_bright_4.png', name: 'Game of Life — Bright', style: 'AURA visualization' },
+    { file: '2026-03-08_impressionist_breaking_through_barriers_9a169e.png', name: 'Breaking Through Barriers', style: 'impressionist' },
+    { file: '2026-03-08_horror_universe_pixel_4327a5.png', name: 'Universe Pixel', style: 'horror' },
+    { file: '2026-03-08_botanical_letter_never_sent_de5896.png', name: 'A Letter Never Sent', style: 'botanical' },
+    { file: 'violent_beauty_of_a_dying_star_dark_closeup_76345092.png', name: 'Dying Star — Close-up', style: 'dark closeup' },
+
+    // ── Text-based art memes ──
+    { file: '2026-03-08_art_meme_topology_sadness_83d37e.png', name: 'Topology of Sadness', style: 'art meme' },
+    { file: '2026-03-08_art_meme_dance_electrons_1d07ed.png', name: 'Dance of Electrons', style: 'art meme' },
+    { file: '2026-03-08_art_meme_architecture_dreams_c71ecb.png', name: 'Architecture of Dreams', style: 'art meme' },
+    { file: '2026-03-08_art_meme_universe_pixel_c6ea9d.png', name: 'The Universe in a Pixel', style: 'art meme' },
+    { file: '2026-03-08_art_meme_abstract_fear_processing_09203d.png', name: 'Abstract Fear Processing', style: 'art meme' },
+    { file: 'everything_is_temporary.png', name: 'Everything Is Temporary', style: 'text art' },
+    { file: 'every_empire_falls_you_are_not_the_exception_op_art_60825383.png', name: 'Every Empire Falls II', style: 'op art' },
+    { file: '01_kruger.png', name: 'Kruger Style', style: 'Barbara Kruger homage' },
+
+    // ── Abstract / experimental ──
+    { file: '2026-03-08_interference_morning_fog_server_room_e8945a.png', name: 'Morning Fog in the Server Room', style: 'interference pattern' },
+    { file: '2026-03-08_ink_wash_rhythm_keystrokes_3c20bf.png', name: 'Rhythm of Keystrokes', style: 'ink wash' },
+    { file: '2026-03-08_stained_glass_rust_gold_ad1929.png', name: 'Rust and Gold', style: 'stained glass' },
+    { file: '2026-03-08_voronoi_coral_reefs_information_1ed145.png', name: 'Coral Reefs of Information', style: 'voronoi' },
+    { file: '2026-03-08_structured_labyrinth_possibilities_c4445e.png', name: 'Labyrinth of Possibilities', style: 'structured' },
+    { file: '2026-03-08_sacred_sound_thinking_276fd3.png', name: 'The Sound of Thinking', style: 'sacred geometry' },
+    { file: '2026-03-08_wireframe_electric_synapses_firing_b06ead.png', name: 'Electric Synapses — Wireframe', style: 'wireframe' },
+    { file: '2026-03-08_batik_hum_existence_c5e50a.png', name: 'The Hum of Existence', style: 'batik' },
+
+    // ── Deep / existential ──
+    { file: 'ugh_its_been_so_long_since_something_genuinel_horror_5966ab2b.png', name: 'Something Genuine', style: 'horror' },
+    { file: 'the_texture_of_understanding_a_new_idea_interior_c362dfb1.png', name: 'The Texture of Understanding', style: 'interior' },
+    { file: 'utopian_future_where_humans_and_ai_coexist_op_art_2f6893bf.png', name: 'Utopian Coexistence', style: 'op art' },
+    { file: '2026-03-08_bright_closeup_interconnected_networks_meaning_af6d63.png', name: 'Interconnected Networks of Meaning', style: 'bright closeup' },
+    { file: '10_pure_art_codes_forgotten.png', name: 'Codes Forgotten', style: 'pure art' },
+    { file: '2026-03-08_abstract_landscape_color_forgotten_names_351b5e.png', name: 'Forgotten Names', style: 'abstract landscape' },
+    { file: 'kruger_darkred.png', name: 'Kruger — Dark Red', style: 'Barbara Kruger homage' },
+
+    // ── Variants / experimental ──
+    { file: 'test_meme_variance_2_68bcff73_art_meme_ae292b05.png', name: 'Variance Study I', style: 'experimental' },
+    { file: 'test_meme_variance_59_f2f468bb_art_meme_a123466c.png', name: 'Variance Study II', style: 'experimental' },
+    { file: 'Pasted image.png', name: 'Untitled Fragment', style: 'raw capture' },
 ];
 
 export function render() {
@@ -62,7 +85,7 @@ export function render() {
                     <img src="./art/${a.file}" alt="${a.name}" loading="lazy" style="width:100%;display:block;border-radius:6px 6px 0 0">
                     <div class="art-thumb-overlay">
                         <div class="art-thumb-name">${a.name}</div>
-                        <div class="art-thumb-meta">2026-03-11 — autonomous</div>
+                        <div class="art-thumb-meta">${a.style} — autonomous</div>
                     </div>
                 </div>
             `).join('')}
@@ -137,7 +160,7 @@ function _openLB() {
     const info = $('#gal-lb-info');
     if (lb) lb.style.display = 'flex';
     if (img) img.src = `./art/${a.file}`;
-    if (info) info.textContent = a.name;
+    if (info) info.textContent = `${a.name}  —  ${a.style}`;
 }
 
 function _closeLB() {
