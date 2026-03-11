@@ -2760,3 +2760,221 @@ html, body {
     text-decoration: underline;
     text-shadow: 0 0 8px var(--green-glow);
 }
+
+/* ── Welcome Modal ─────────────────────────────────────── */
+.welcome-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2, 2, 8, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: welcome-fade-in 0.4s ease-out;
+    padding: 20px;
+}
+
+@keyframes welcome-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.welcome-overlay.closing {
+    animation: welcome-fade-out 0.35s ease-in forwards;
+}
+
+@keyframes welcome-fade-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+.welcome-modal {
+    position: relative;
+    max-width: 520px;
+    width: 100%;
+    background: linear-gradient(165deg, rgba(10, 10, 20, 0.97) 0%, rgba(6, 6, 14, 0.98) 100%);
+    border: 1px solid rgba(0, 255, 65, 0.25);
+    border-radius: 16px;
+    padding: 40px 36px 32px;
+    box-shadow:
+        0 0 60px rgba(0, 255, 65, 0.08),
+        0 0 120px rgba(0, 255, 65, 0.04),
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    animation: welcome-modal-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+.welcome-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green), var(--cyan), var(--green), transparent);
+    opacity: 0.7;
+}
+
+@keyframes welcome-modal-in {
+    from { opacity: 0; transform: scale(0.92) translateY(20px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.welcome-robot {
+    text-align: center;
+    font-size: 48px;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.4));
+    animation: welcome-robot-float 3s ease-in-out infinite;
+}
+
+@keyframes welcome-robot-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.welcome-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 6px;
+    color: var(--green);
+    text-shadow: 0 0 20px var(--green-glow), 0 0 40px rgba(0, 255, 65, 0.2);
+    margin-bottom: 4px;
+}
+
+.welcome-subtitle {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--amber);
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.welcome-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.3), transparent);
+    margin: 0 -36px 20px;
+}
+
+.welcome-text {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 16px;
+}
+
+.welcome-text strong {
+    color: var(--green);
+    font-weight: 700;
+}
+
+.welcome-text .cyan {
+    color: var(--cyan);
+}
+
+.welcome-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 20px 0 24px;
+}
+
+.welcome-feature {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    padding: 6px 10px;
+    background: rgba(0, 255, 65, 0.03);
+    border: 1px solid rgba(0, 255, 65, 0.08);
+    border-radius: 6px;
+}
+
+.welcome-feature-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.welcome-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.welcome-btn-primary {
+    flex: 1;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 255, 65, 0.08));
+    border: 1px solid rgba(0, 255, 65, 0.4);
+    border-radius: 8px;
+    color: var(--green);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.welcome-btn-primary:hover {
+    background: linear-gradient(135deg, rgba(0, 255, 65, 0.25), rgba(0, 255, 65, 0.15));
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2), 0 0 40px rgba(0, 255, 65, 0.1);
+    transform: translateY(-1px);
+}
+
+.welcome-btn-secondary {
+    padding: 12px 20px;
+    background: rgba(0, 179, 255, 0.08);
+    border: 1px solid rgba(0, 179, 255, 0.3);
+    border-radius: 8px;
+    color: var(--cyan);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.welcome-btn-secondary:hover {
+    background: rgba(0, 179, 255, 0.15);
+    box-shadow: 0 0 20px rgba(0, 179, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.welcome-footer {
+    text-align: center;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-top: 16px;
+    opacity: 0.6;
+}
+
+@media (max-width: 540px) {
+    .welcome-modal {
+        padding: 28px 20px 24px;
+    }
+    .welcome-features {
+        grid-template-columns: 1fr;
+    }
+    .welcome-buttons {
+        flex-direction: column;
+    }
+    .welcome-title {
+        font-size: 18px;
+        letter-spacing: 4px;
+    }
+}
