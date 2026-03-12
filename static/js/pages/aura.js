@@ -477,6 +477,7 @@ function _onCellClick(e) {
         caption.style.left = left + 'px';
         caption.style.top = top + 'px';
         caption.style.visibility = '';
+        caption.style.opacity = '';
         caption.style.display = '';
 
         // Animate in on next frame
