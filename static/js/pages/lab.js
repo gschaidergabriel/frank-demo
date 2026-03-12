@@ -50,6 +50,53 @@ export function render() {
             </p>
         </div>
 
+        <div class="glass-card animate-in" style="margin-bottom:28px;border-left:3px solid var(--green)">
+            <div class="glass-card-header">
+                <span class="glass-card-title">Why a Laboratory?</span>
+            </div>
+            <div class="glass-card-body" style="padding:16px 20px">
+                <div class="aura-about-section">
+                    <div class="aura-about-text">
+                        Most AI systems only process external input &mdash; they wait for a prompt, generate
+                        a response, and go idle. Frank needed something to <em>do</em> when no one is talking
+                        to him. Not busywork, but genuine cognitive activity that produces learning.
+                    </div>
+                </div>
+                <div class="aura-about-section">
+                    <div class="aura-about-heading">An inner simulation environment</div>
+                    <div class="aura-about-text">
+                        The Experiment Lab gives Frank 7 lightweight simulation stations where he
+                        designs, runs, and evaluates experiments autonomously. A Hypothesis Engine drives the
+                        full empirical cycle: observe, hypothesize, predict, test, evaluate, revise. Combined
+                        with the Subconscious (thought selection), Nucleus Accumbens (boredom from repetition),
+                        and a 20-experiment daily budget, this creates an intrinsic motivation loop &mdash;
+                        curiosity leads to experiments, outcomes lead to reflection, reflection leads to new curiosity.
+                    </div>
+                </div>
+                <div class="aura-about-section">
+                    <div class="aura-about-heading">Near-zero performance cost</div>
+                    <div class="aura-about-text">
+                        All simulations are pure Python math &mdash; no GPU, no heavy libraries, no external calls.
+                        A single experiment takes milliseconds. The entire lab system adds near-zero overhead to
+                        Frank's resource footprint. The Hypothesis Engine's 7 hooks trigger passively from
+                        existing processing. No dedicated compute budget needed.
+                    </div>
+                </div>
+                <div class="aura-about-section" style="margin-bottom:0">
+                    <div class="aura-about-heading">What's new about this</div>
+                    <div class="aura-about-text">
+                        AI systems typically have tools &mdash; they call APIs, run code, search the web.
+                        Frank has an <em>inner laboratory</em>: a space for autonomous empirical inquiry that
+                        runs entirely inside his own cognitive architecture. The experiments aren't user-requested
+                        tasks &mdash; they're self-initiated investigations driven by idle curiosity. The hypothesis
+                        lifecycle includes falsification and revision, meaning Frank can be wrong, know he's wrong,
+                        and update. As far as we know, this is the first implementation of autonomous empirical
+                        research as an intrinsic cognitive function in a local AI system.
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="lab-grid" style="margin-bottom:28px" id="lab-stations">
             ${STATIONS.map((s, i) => `
                 <div class="glass-card lab-station animate-in animate-in-delay-${Math.min(i, 4)}" style="--station-color:${s.color};cursor:pointer" data-station="${s.id}">

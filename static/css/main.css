@@ -2834,14 +2834,21 @@ html, body {
     color: var(--text-dim);
     font-style: italic;
 }
-.msg-text .md-link {
-    color: var(--cyan);
-    text-decoration: underline;
-    text-decoration-color: var(--cyan-dim);
-    word-break: break-all;
-}
-.msg-text .md-link:hover {
+.msg-text .md-link,
+.msg-text a {
     color: var(--green);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--green-dim);
+    text-underline-offset: 2px;
+    text-shadow: 0 0 4px var(--green-glow);
+    word-break: break-all;
+    transition: color 0.2s, text-shadow 0.2s;
+}
+.msg-text .md-link:hover,
+.msg-text a:hover {
+    color: #fff;
+    text-shadow: 0 0 8px var(--green-glow);
 }
 
 /* ══════════════════════════════════════════════════════════════════

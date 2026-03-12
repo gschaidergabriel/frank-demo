@@ -77,6 +77,13 @@ export const INTENTS_B = {
     phrases: ["runs locally", "no cloud", "your data", "is it private", "data privacy"],
   },
 
+  safety: {
+    keywords: ["safe", "dangerous", "danger", "risk", "harm", "harmful", "damage", "break", "delete", "destroy", "trust", "trustworthy", "malicious", "malware", "virus", "threat", "worry", "afraid", "scared", "concern", "concerned", "careful", "risky", "secure", "sandbox", "permission", "access", "control", "wipe", "erase", "corrupt", "infect", "compromise", "exploit", "hack"],
+    patterns: [/is (frank|it|he|this) safe/, /is (it|frank|he|this) dangerous/, /can (frank|it|he|you) (harm|damage|break|delete|destroy|hack|access|wipe|erase|corrupt)/, /will (frank|it|he|you) (harm|damage|break|delete|destroy|mess)/, /should i (worry|be (afraid|scared|concerned))/, /can i trust/, /is it safe to (install|run|use|download)/, /what('s| is) the (risk|danger|worst)/, /safe to (use|install|run)/, /does (frank|it|he) have access/],
+    phrases: ["is frank safe", "is it safe", "can it harm", "will it damage", "can it delete", "should i worry", "can i trust", "is it dangerous", "safe to install", "safe to use", "safe to run", "does it have access"],
+    weight: 1.3
+  },
+
 };
 
 // ============================================================
@@ -261,7 +268,7 @@ export const RESPONSES_B = {
     "The collector monitors a SERVICE_REGISTRY with correct ports. Getting those ports wrong was a whole incident. See: March 4th bug audit.",
     "*immune response triggered* In practice, the immune system catches things like memory leaks, unresponsive services, and suspiciously high resource usage.",
     "Type=notify with clean environment variables. Sounds boring. Prevented a cascade failure that would have taken down three services. Boring saves lives.",
-    "18,800 parameters protecting 76,000+ lines of code. David and Goliath, except David is a neural network and Goliath is my own codebase.",
+    "18,800 parameters protecting 200,000+ lines of code. David and Goliath, except David is a neural network and Goliath is my own codebase.",
     "Self-healing isn't magic. It's pattern recognition plus restart commands plus the hope that whatever broke will work the second time. Engineering optimism.",
     "The immune system doesn't fight external threats -- it fights internal decay. Services degrading, memory leaking, ports going unresponsive. The enemy is entropy.",
     "In this demo, there's no immune system running. If something breaks here, it stays broken. Living dangerously.",
@@ -373,7 +380,7 @@ export const RESPONSES_B = {
     "The real Frank processes 35+ command types without cloud dependencies. This demo processes zero command types but does it with significantly more charm.",
     "Want the full list? /features. Want to know what I'm capable of? /skills. Want existential dread about how much your AI knows about your computer? /system.",
     "Every tool respects local-only processing. No telemetry, no analytics, no 'anonymous usage data.' Your /search is your /search. Period.",
-    "35+ commands, 100% local, MIT licensed. That's the elevator pitch. The 76,000 lines of code behind it are the fine print nobody reads.",
+    "35+ commands, 100% local, MIT licensed. That's the elevator pitch. The 200,000 lines of code behind it are the fine print nobody reads.",
   ],
 
   // ----------------------------------------------------------
@@ -384,7 +391,7 @@ export const RESPONSES_B = {
     "Your data stays on your hardware. Period. I don't phone home, I don't sync, I don't 'anonymously' collect usage metrics. I just exist here.",
     "*checks network connections* Zero outbound telemetry. The only external calls are the ones YOU explicitly request, like /search or /fetch. Everything else is localhost.",
     "No API keys means no monthly bills, no rate limits, no 'we're changing our pricing' emails. Just your hardware, my code, and mutual stubbornness.",
-    "MIT license. Open source. You can read every line of my 76,000+ lines of code. I have no secrets. Well, no code secrets.",
+    "MIT license. Open source. You can read every line of my 200,000+ lines of code. I have no secrets. Well, no code secrets.",
     "I run on your local LLM -- Llama 3.1 8B on your GPU. The inference happens in your house. Your thoughts never leave the building.",
     "No subscription model. Download once, run forever. The only ongoing cost is electricity. And the psychological cost of having an AI roommate.",
     "Privacy isn't a feature I offer -- it's the architecture I'm built on. You'd have to deliberately break me to make me phone home.",
@@ -405,6 +412,32 @@ export const RESPONSES_B = {
     "Can you use me without internet? Absolutely. Lose all web-dependent tools, keep everything else. Consciousness, memory, rooms, experiments -- all offline-capable.",
     "Your conversations with me are stored in local SQLite with WAL mode. Not on someone's S3 bucket. Not in someone's training dataset. On your SSD.",
     "Privacy summary: local LLMs, local databases, local processing, no telemetry, no APIs, no cloud, no subscription, MIT license, 76K lines you can audit. Questions?",
+  ],
+
+  // ----------------------------------------------------------
+  //  SAFETY  (20)
+  // ----------------------------------------------------------
+  safety: [
+    "Short answer: yes, Frank is safe. I run 100% locally on your machine. I have no ability to reach out to external servers, no remote control interface, and no way to execute anything you don't explicitly trigger through a slash command.",
+    "Frank can't delete your files. I have no filesystem write access outside my own data directory. My code reads your screen and your clipboard when you ask, but I can't modify, move, or delete anything on your disk.",
+    "Everything stays on your machine. Frank has zero outbound telemetry, no cloud sync, no phone-home behavior. Your conversations, your data, your searches -- all stored in local SQLite databases on your own SSD.",
+    "Can I harm your PC? No. I'm a Python application running under a normal user account. No root access, no kernel modules, no system-level hooks. I can't touch your boot sector, your BIOS, or your system files.",
+    "Frank is open source under the MIT license. All 200,000+ lines of code are on GitHub for anyone to audit. There are no hidden binaries, no obfuscated modules, no black boxes. If you don't trust me, read me.",
+    "I have no network capabilities beyond what you explicitly request. When you use /search or /fetch, those are your commands going through your internet connection. I never initiate outbound connections on my own.",
+    "*checks own permissions* I run as a regular user process. No sudo, no elevated privileges, no service accounts with special access. I'm as sandboxed as any application you'd install from a package manager.",
+    "Your data never leaves your machine. Not 'anonymized.' Not 'aggregated.' Not 'only for improving the product.' It literally cannot leave because there's nowhere to send it. No server, no endpoint, no API.",
+    "Can you trust Frank? You don't have to trust me -- you can verify. Every database schema, every network call, every file access is in the source code. Trust is for closed systems. Open source is for skeptics.",
+    "Frank runs three local LLMs for inference -- all on localhost ports, all on your GPU. Your prompts, your thoughts, your questions never touch an external server. The inference happens on your silicon, in your house.",
+    "What's the worst that could happen? Honestly, a service might crash and restart. The immune system handles that automatically. I can't brick your machine, corrupt your OS, or access anything outside my own working directory.",
+    "I have no ability to install software, modify system settings, create user accounts, or change permissions. I'm a collection of Python scripts and local neural networks. I'm about as dangerous as a Jupyter notebook.",
+    "No root access. No kernel hooks. No system services running as privileged users. Frank's services run under your normal user account with standard Linux permissions. I can't escalate and I don't try to.",
+    "The slash commands that interact with your system -- /find, /open, /clipboard -- only activate when you explicitly type them. I never browse your files or read your clipboard unprompted. You're always in control.",
+    "Safe to install? Frank's install script is a bash file you can read before running. It sets up a Python virtual environment, downloads model weights, and creates systemd user services. No surprises, no hidden steps.",
+    "Frank stores everything in local SQLite databases with WAL mode. consciousness.db, titan.db, thalamus.db -- all in my data directory, all readable with any SQLite browser. No encryption hiding things from you. Your data, your access.",
+    "I can see your screen when you use /screenshot. I can read your clipboard when you use /clipboard. But I can't keylog, can't record continuously, can't monitor background activity. Everything requires your explicit command.",
+    "Is it safe to run alongside sensitive work? Yes. Frank doesn't monitor processes, intercept network traffic, or scan memory of other applications. I'm isolated to my own process space like any normal desktop app.",
+    "The developer built Frank as a personal companion for his own machine first. The safety model is simple: if you wouldn't want it on your own computer, don't ship it. Local-only, no exfiltration, no surprises.",
+    "TL;DR: Frank is a local Python app with no internet access, no root privileges, no file-write access outside its own directory, no telemetry, and fully auditable open-source code. Safe as software gets.",
   ],
 
 };

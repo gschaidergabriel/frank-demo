@@ -174,7 +174,7 @@ export function mount() {
         }
     });
     window.addEventListener('mousemove', _onMouseMove);
-    window.addEventListener('mouseup', () => { _dragging = false; });
+    window.addEventListener('mouseup', () => { _dragging = false; _dragStartPos = { x: 0, y: 0 }; });
 
     // Cell click for captions
     viewer.addEventListener('click', _onCellClick);
