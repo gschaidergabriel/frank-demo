@@ -1110,100 +1110,50 @@ html, body {
     overflow-y: auto;
 }
 
-.aura-metric-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px 0;
+/* ── AURA About Section ──────────────────────────────────────── */
+.aura-about-section {
+    margin-bottom: 18px;
 }
 
-.aura-metric-label {
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--text-dim);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-}
-
-.aura-metric-value {
-    font-size: 14px;
+.aura-about-heading {
+    font-size: 9px;
     font-weight: 700;
     color: var(--green);
-    text-shadow: 0 0 6px var(--green-glow);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
 }
 
-.aura-bar {
-    height: 6px;
-    background: var(--bg-elevated);
-    border-radius: 3px;
-    overflow: hidden;
-    margin-top: 4px;
-}
-
-.aura-bar-fill {
-    height: 100%;
-    border-radius: 3px;
-    transition: width 0.8s var(--ease-out-expo);
-}
-
-.aura-bar-fill.mood { background: linear-gradient(90deg, #FF8000, #FFD900); box-shadow: 0 0 8px rgba(255, 128, 0, 0.3); }
-.aura-bar-fill.coherence { background: linear-gradient(90deg, #00b3ff, #00fff9); box-shadow: 0 0 8px rgba(0, 255, 249, 0.3); }
-.aura-bar-fill.energy { background: linear-gradient(90deg, var(--green-dark), var(--green)); box-shadow: 0 0 8px var(--green-glow); }
-
-.zone-legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.zone-tag {
-    font-size: 9px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    color: var(--zc);
-    background: color-mix(in srgb, var(--zc) 8%, transparent);
-    border: 1px solid color-mix(in srgb, var(--zc) 15%, transparent);
-    letter-spacing: 1px;
-    cursor: default;
-    transition: all 0.3s;
-}
-
-.zone-tag:hover {
-    background: color-mix(in srgb, var(--zc) 18%, transparent);
-    box-shadow: 0 0 10px color-mix(in srgb, var(--zc) 25%, transparent);
-}
-
-/* ── AURA Introspection Panel ────────────────────────────────────── */
-.introspect-section { margin-top: 8px; }
-
-.introspect-item {
-    padding: 8px 12px;
-    margin-bottom: 4px;
-    border-left: 2px solid var(--cyan-dim);
+.aura-about-text {
     font-size: 11px;
     color: var(--text);
-    line-height: 1.5;
-    transition: all 0.3s;
+    line-height: 1.7;
+    opacity: 0.85;
 }
 
-.introspect-item:hover {
-    border-left-color: var(--cyan);
-    background: rgba(0, 255, 249, 0.03);
+.aura-about-text a {
+    color: var(--cyan);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 255, 249, 0.2);
+    transition: border-color 0.3s;
 }
 
-/* ── AURA Zone List ────────────────────────────────────────────── */
-.aura-zone-list {
+.aura-about-text a:hover {
+    border-bottom-color: var(--cyan);
+}
+
+/* ── AURA Zone Legend ────────────────────────────────────────── */
+.aura-zone-legend {
     display: flex;
-    flex-direction: column;
-    gap: 3px;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    margin-top: 8px;
 }
 
-.aura-zone-item {
+.aura-legend-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 4px 0;
-    font-size: 10px;
+    gap: 6px;
 }
 
 .aura-zone-dot {
@@ -1213,38 +1163,11 @@ html, body {
     flex-shrink: 0;
 }
 
-.aura-zone-name {
-    color: var(--text);
-    min-width: 70px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-.aura-zone-val {
-    color: var(--text-dim);
-    font-size: 9px;
-    margin-left: auto;
-    text-align: right;
-    max-width: 140px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* ── AURA Cell Caption ─────────────────────────────────────────── */
-.aura-cap-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2px 0;
+.aura-legend-label {
     font-size: 10px;
-}
-
-.aura-cap-k {
     color: var(--text-dim);
-    text-transform: capitalize;
-    font-size: 9px;
-    letter-spacing: 0.5px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 
 .aura-cap-v {
@@ -1252,6 +1175,86 @@ html, body {
     font-weight: 600;
     font-variant-numeric: tabular-nums;
 }
+
+/* ── AURA Cell Caption Popup ───────────────────────────────── */
+.aura-caption {
+    position: absolute;
+    z-index: 20;
+    width: 220px;
+    background: rgba(5, 5, 12, 0.92);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    padding: 12px 14px;
+    pointer-events: none;
+    transform: scale(0.85) translateY(6px);
+    opacity: 0;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+.aura-caption.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+}
+.aura-cap-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.aura-cap-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 6px currentColor;
+}
+.aura-cap-zone {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.aura-cap-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 2px 0;
+}
+.aura-cap-k {
+    font-size: 9px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.aura-cap-v {
+    font-size: 10px;
+    color: var(--text);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+.aura-cap-desc {
+    font-size: 10px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    opacity: 0.8;
+}
+.aura-cap-close {
+    position: absolute;
+    top: 6px; right: 8px;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 13px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px;
+    pointer-events: auto;
+}
+.aura-cap-close:hover { color: var(--text); }
 
 /* ══════════════════════════════════════════════════════════════════
    LABORATORY PAGE
