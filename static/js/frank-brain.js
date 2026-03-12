@@ -195,10 +195,17 @@ export class FrankBrain {
         }
 
         // 5. CTA injection (progressive download nudge)
-        const ctaReady = this.msgCount >= 4
-            && this.msgCount - this.lastCTA >= 6
-            && Math.random() < Math.min(0.3, 0.08 + this.msgCount * 0.003);
-        if (ctaReady && this.db.responses.cta) {
+        // Skip CTA when user is insulting or saying farewell — respond to THOSE first
+        const insultIdx = this.intentNames.indexOf('insult');
+        const farewellIdx = this.intentNames.indexOf('farewell');
+        const isEmotional = (insultIdx >= 0 && scores[insultIdx] > 2)
+            || (farewellIdx >= 0 && scores[farewellIdx] > 2);
+
+        const sinceLast = this.msgCount - this.lastCTA;
+        const firstCTA = this.lastCTA < 0 && this.msgCount >= 3;
+        const regularCTA = sinceLast >= 4
+            && Math.random() < Math.min(0.45, 0.22 + this.msgCount * 0.005);
+        if (!isEmotional && (firstCTA || regularCTA) && this.db.responses.cta) {
             this.lastCTA = this.msgCount;
             return this._pickCTA();
         }

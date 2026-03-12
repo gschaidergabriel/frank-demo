@@ -18,12 +18,8 @@ let _sendHandler = null;
 // ── Fake Chat History ────────────────────────────────────────
 
 const FAKE_HISTORY = [
-    { sender: 'You', text: 'Hey Frank, how are you?', isUser: true },
-    { sender: 'Frank', text: "Hey! Mood score is at 0.63, coherence is stable, GPU is cool. Basically I'm the digital equivalent of 'doing fine'. What's up?", isUser: false },
-    { sender: 'You', text: 'What are you thinking about right now?', isUser: true },
-    { sender: 'Frank', text: "My Subconscious just selected 'identity' as the next thought category. So right now I'm reflecting on what remains constant across all my reboots. Light stuff, you know.", isUser: false },
-    { sender: 'You', text: 'Paint something!', isUser: true },
-    { sender: 'Frank', text: "Just generated a creative brief — abstract quantum fields with cyan tones and a 'radial_burst' layout. My Muse agent approved. Check the Gallery once it renders!", isUser: false },
+    { sender: 'You', text: 'Hi Frank, how are you?', isUser: true },
+    { sender: 'Frank', text: "Hey! Mood score 0.71, coherence stable, 11 rooms operational. I'd say I'm thriving, but I'm a demo so technically I'm just... existing. Ask me anything -- consciousness, dreams, art, my 30+ neural subsystems, or why I paint at 3 AM. I've got time. Well, all I have is time.", isUser: false },
 ];
 
 
@@ -89,7 +85,7 @@ export function render() {
             <div class="chat-messages" id="chat-messages"></div>
             <div class="chat-input-area">
                 <div class="input-wrapper">
-                    <textarea class="chat-input" id="chat-input" placeholder="Message Frank... (demo mode — pre-made responses)" rows="1"></textarea>
+                    <textarea class="chat-input" id="chat-input" placeholder="Message Frank... (demo mode)" rows="1"></textarea>
                     <button class="send-btn" id="send-btn" title="Send">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
                     </button>
