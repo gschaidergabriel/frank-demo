@@ -70,7 +70,7 @@ export function render() {
                 <canvas id="aura-mini-canvas" width="256" height="256"></canvas>
                 <div class="aura-minimap-viewport" id="aura-mini-vp"></div>
             </div>
-            <div class="aura-caption" id="aura-caption" style="display:none"></div>
+            <div class="aura-caption" id="aura-caption"></div>
         </div>
         <div class="aura-sidebar">
             <div class="glass-card animate-in">
@@ -167,17 +167,14 @@ export function mount() {
     }, { passive: false });
 
     viewer.addEventListener('mousedown', (e) => {
-        if (_zoom <= 1) return;
-        _dragging = false;
         _dragMoved = false;
-        _dragStart = { x: e.clientX - _panX, y: e.clientY - _panY };
         _dragStartPos = { x: e.clientX, y: e.clientY };
+        if (_zoom > 1) {
+            _dragStart = { x: e.clientX - _panX, y: e.clientY - _panY };
+        }
     });
     window.addEventListener('mousemove', _onMouseMove);
-    window.addEventListener('mouseup', (e) => {
-        if (_dragging && !_dragMoved) { /* was a click, not a drag */ }
-        _dragging = false;
-    });
+    window.addEventListener('mouseup', () => { _dragging = false; });
 
     // Cell click for captions
     viewer.addEventListener('click', _onCellClick);
@@ -349,12 +346,13 @@ function _setZoom(z) {
 function _resetView() { _zoom = 1; _panX = 0; _panY = 0; _updateViewport(); }
 
 function _onMouseMove(e) {
-    if (!_dragging && _dragStartPos.x !== 0) {
+    // Detect drag vs click
+    if (_dragStartPos.x !== 0 && !_dragMoved) {
         const dx = Math.abs(e.clientX - _dragStartPos.x);
         const dy = Math.abs(e.clientY - _dragStartPos.y);
-        if (dx > 3 || dy > 3) { _dragging = true; _dragMoved = true; }
+        if (dx > 4 || dy > 4) { _dragMoved = true; if (_zoom > 1) _dragging = true; }
     }
-    if (!_dragging) return;
+    if (!_dragging || _zoom <= 1) return;
     _panX = e.clientX - _dragStart.x;
     _panY = e.clientY - _dragStart.y;
     _updateViewport();
@@ -383,50 +381,51 @@ function _fluctuateMetrics() {
 // ── Cell Click & Caption ─────────────────────────────────
 
 function _onCellClick(e) {
-    if (_dragMoved) { _dragMoved = false; return; }
+    // Ignore if was a drag
+    if (_dragMoved) return;
+
+    // Ignore clicks on controls/buttons
+    if (e.target.closest('.aura-controls, .aura-minimap, .aura-gen-counter, .aura-cap-close')) return;
 
     const viewer = $('#aura-viewer');
     const caption = $('#aura-caption');
-    if (!viewer || !caption) return;
+    if (!viewer || !caption || !_canvas) return;
 
-    const rect = _canvas.getBoundingClientRect();
-    const scaleX = GRID_SIZE / rect.width;
-    const scaleY = GRID_SIZE / rect.height;
-
-    // Account for zoom & pan via CSS transform
-    const cssX = e.clientX - rect.left;
-    const cssY = e.clientY - rect.top;
-    const gx = clamp(Math.floor(cssX * scaleX), 0, GRID_SIZE - 1);
-    const gy = clamp(Math.floor(cssY * scaleY), 0, GRID_SIZE - 1);
+    // Map click to grid coords
+    const viewerRect = viewer.getBoundingClientRect();
+    const canvasRect = _canvas.getBoundingClientRect();
+    const cssX = e.clientX - canvasRect.left;
+    const cssY = e.clientY - canvasRect.top;
+    const gx = clamp(Math.floor(cssX / canvasRect.width * GRID_SIZE), 0, GRID_SIZE - 1);
+    const gy = clamp(Math.floor(cssY / canvasRect.height * GRID_SIZE), 0, GRID_SIZE - 1);
 
     const idx = gy * GRID_SIZE + gx;
     const zone = ZONES[_zoneMap[idx]];
     const alive = _grid[idx] === 1;
 
-    // Count alive neighbors for this cell
+    // Count alive neighbors
     let neighbors = 0;
     for (let dy = -1; dy <= 1; dy++) {
         for (let dx = -1; dx <= 1; dx++) {
             if (dx === 0 && dy === 0) continue;
-            const nx = (gx + dx + GRID_SIZE) % GRID_SIZE;
-            const ny = (gy + dy + GRID_SIZE) % GRID_SIZE;
-            neighbors += _grid[ny * GRID_SIZE + nx];
+            neighbors += _grid[((gy + dy + GRID_SIZE) % GRID_SIZE) * GRID_SIZE + ((gx + dx + GRID_SIZE) % GRID_SIZE)];
         }
     }
 
-    // Count zone alive cells
-    const zoneId = zone.id;
+    // Zone density
     let zoneAlive = 0, zoneTotal = 0;
     for (let i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
-        if (_zoneMap[i] === zoneId) { zoneTotal++; zoneAlive += _grid[i]; }
+        if (_zoneMap[i] === zone.id) { zoneTotal++; zoneAlive += _grid[i]; }
     }
     const zoneDensity = ((zoneAlive / zoneTotal) * 100).toFixed(1);
 
-    // Build zone-specific simulated data
     const zoneData = _buildZoneData(zone);
 
+    // Hide first to reset animation
+    caption.classList.remove('visible');
+
     caption.innerHTML = `
-        <button class="aura-cap-close" onclick="this.parentElement.classList.remove('visible')">&times;</button>
+        <button class="aura-cap-close">&times;</button>
         <div class="aura-cap-header">
             <span class="aura-cap-dot" style="background:${zone.color};color:${zone.color}"></span>
             <span class="aura-cap-zone" style="color:${zone.color}">${zone.label}</span>
@@ -434,39 +433,55 @@ function _onCellClick(e) {
         <div class="aura-cap-row"><span class="aura-cap-k">Position</span><span class="aura-cap-v">(${gx}, ${gy})</span></div>
         <div class="aura-cap-row"><span class="aura-cap-k">Status</span><span class="aura-cap-v" style="color:${alive ? zone.color : '#666'}">${alive ? 'Alive' : 'Dead'}</span></div>
         <div class="aura-cap-row"><span class="aura-cap-k">Neighbors</span><span class="aura-cap-v">${neighbors} / 8</span></div>
-        <div class="aura-cap-row"><span class="aura-cap-k">Age</span><span class="aura-cap-v">${_generation.toLocaleString()} gen</span></div>
+        <div class="aura-cap-row"><span class="aura-cap-k">Generation</span><span class="aura-cap-v">${_generation.toLocaleString()}</span></div>
         <div class="aura-cap-row"><span class="aura-cap-k">Zone Density</span><span class="aura-cap-v" style="color:${zone.color}">${zoneDensity}%</span></div>
         ${zoneData}
         <div class="aura-cap-desc">${zone.explain}</div>
     `;
 
-    // Position popup — always inside the viewer bounds
-    const viewerRect = viewer.getBoundingClientRect();
-    const popupW = 220, popupH = caption.scrollHeight || 280;
-    let left = e.clientX - viewerRect.left + 14;
-    let top = e.clientY - viewerRect.top + 14;
+    // Wire up close button
+    const closeBtn = caption.querySelector('.aura-cap-close');
+    if (closeBtn) closeBtn.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        caption.classList.remove('visible');
+    });
 
-    // Flip left if would overflow right
-    if (left + popupW > viewerRect.width - 8) {
-        left = e.clientX - viewerRect.left - popupW - 14;
-    }
-    // Flip up if would overflow bottom
-    if (top + popupH > viewerRect.height - 8) {
-        top = e.clientY - viewerRect.top - popupH - 14;
-    }
-    // Clamp to stay inside
-    left = clamp(left, 8, viewerRect.width - popupW - 8);
-    top = clamp(top, 8, viewerRect.height - popupH - 8);
-
-    caption.style.left = left + 'px';
-    caption.style.top = top + 'px';
+    // Measure size: temporarily make visible off-screen
+    caption.style.left = '0px';
+    caption.style.top = '0px';
+    caption.style.visibility = 'hidden';
+    caption.style.opacity = '0';
     caption.style.display = 'block';
 
-    // Trigger animation on next frame
-    caption.classList.remove('visible');
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-        caption.classList.add('visible');
-    }));
+    requestAnimationFrame(() => {
+        const popupW = caption.offsetWidth;
+        const popupH = caption.offsetHeight;
+        const vw = viewerRect.width;
+        const vh = viewerRect.height;
+
+        // Click position relative to viewer
+        let left = e.clientX - viewerRect.left + 14;
+        let top = e.clientY - viewerRect.top + 14;
+
+        // Flip if near edges
+        if (left + popupW > vw - 8) left = e.clientX - viewerRect.left - popupW - 14;
+        if (top + popupH > vh - 8) top = e.clientY - viewerRect.top - popupH - 14;
+
+        // Final clamp
+        left = clamp(left, 8, vw - popupW - 8);
+        top = clamp(top, 8, vh - popupH - 8);
+
+        // Set border color to match zone
+        caption.style.borderColor = zone.color + '55';
+
+        caption.style.left = left + 'px';
+        caption.style.top = top + 'px';
+        caption.style.visibility = '';
+        caption.style.display = '';
+
+        // Animate in on next frame
+        requestAnimationFrame(() => caption.classList.add('visible'));
+    });
 }
 
 function _buildZoneData(zone) {
